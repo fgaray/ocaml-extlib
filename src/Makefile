@@ -31,6 +31,18 @@ doc:
 	$(OCAMLC) -c $(MLI)
 	ocamldoc -sort -html -d doc/ $(MLI) extLib.ml
 
+
+extBytes.mli: extBytes.ml
+	$(OCAMLC) -i  > $@
+	rm $@
+extBytes.cmxs: extBytes.cmxa
+	$(OCAMLOPT) -shared -linkall -o $@
+extBytes.cmo: extBytes.mli extBytes.ml
+	$(OCAMLC) -c extBytes.ml
+extBytes.cmx: extBytes.mli extBytes.ml
+	$(OCAMLOPT) -c extBytes.ml
+
+
 extLib.cma: $(CMO)
 	$(OCAMLC) -a -o $@ $^
 extLib.cmxa: $(CMX)
@@ -45,8 +57,9 @@ extLib.cmo: extLib.ml
 	$(OCAMLC) -c $<
 extLib.cmx: extLib.ml
 	$(OCAMLOPT) -c $<
-extBytes.mli: extBytes.ml
-	$(OCAMLC) -i $< > $@
+
+
+
 %.ml: %.mlpp
 	cppo $(shell ocaml configure.ml) $< -o $@
 

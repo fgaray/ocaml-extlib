@@ -173,7 +173,7 @@ let compare t1 t2 =
             for i = ndx downto 0 do
               let b1 = bget t1.data i 
               and b2 = bget t2.data i in
-              if b1 <> b2 then raise (Break_int (compare b1 b2))
+              if b1 <> b2 then raise (Break_int (compare (string_of_int b1) (string_of_int b2)))
             done;
             0
           with
