@@ -12,7 +12,9 @@ endif
 OCAMLC = ocamlfind ocamlc -g -package bytes
 OCAMLOPT = ocamlfind ocamlopt -g -package bytes
 
-MLI = $(filter-out extLib.mli, $(MODULES:=.mli))
+OUT = extLib.mli extBytes.mli extList.mli
+
+MLI = $(filter-out $(OUT), $(MODULES:=.mli))
 CMI = $(MODULES:=.cmi)
 CMO = $(MODULES:=.cmo)
 CMX = $(MODULES:=.cmx)
